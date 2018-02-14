@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var summoner = document.querySelector('.summon-cats');
   var div1 = document.querySelector('#cat1');
+  var catBoxes = document.querySelectorAll('.cat-box')
 
   summoner.addEventListener('click', function(e){
 
@@ -11,10 +12,23 @@ document.addEventListener("DOMContentLoaded", function() {
       dataType: 'json'
     }).done(function(responseData) {
         console.log(responseData);
-        var img = document.createElement('img');
-        img.src = responseData.cats[0].photo;
-        img.alt = ('Photo of ' + responseData.cats[0].name);
-        div1.append(img);
+        catBoxes.forEach(function(catbox){
+          catbox.innerHTML = '';
+        })
+
+
+        for (var i = 0; i < responseData.cats.length; i++) {
+          var kittyPic = document.createElement('img');
+          kittyPic.src = responseData.cats[i].photo;
+          kittyPic.alt = ('Photo of ' + responseData.cats[i].name);
+          console.log(kittyPic);
+          catBoxes[i].append(kittyPic);
+        }
+
+
+
+
+        // div1.append(kittyPic);
     })
   })
 
